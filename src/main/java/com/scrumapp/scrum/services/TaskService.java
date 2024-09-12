@@ -1,8 +1,8 @@
-package com.scrumapp.scrum.serivices;
+package com.scrumapp.scrum.services;
+
 
 import com.scrumapp.scrum.models.Task;
-import com.scrumapp.scrum.repositories.TaskRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.scrumapp.scrum.repositories.ITaskRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,33 +11,40 @@ import java.util.Optional;
 @Service
 public class TaskService {
 
-    private final TaskRepository taskRepository;
+    private final ITaskRepository taskRepository;
 
-    @Autowired
-    public TaskService(TaskRepository taskRepository) {
+    // Constructor-based dependency injection
+    public TaskService(ITaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
 
-    // Obtener todas las tareas
+    // Get all tasks
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
     }
 
-    // Obtener una tarea por ID
+    // Get a task by ID
     public Optional<Task> getTaskById(Long id) {
         return taskRepository.findById(id);
     }
 
-    // Crear o actualizar una tarea
+    // Create or update a task
     public Task saveTask(Task task) {
         return taskRepository.save(task);
     }
 
-    // Eliminar una tarea por ID
+    // Delete a task by ID
     public void deleteTask(Long id) {
         taskRepository.deleteById(id);
     }
 
-    // Obtener todas las tareas asignadas a un usuario
+    // Get tasks assigned to a specific user
     public List<Task> getTasksByUserId(Long userId) {
-       
+        return taskRepository.findByUserId(userId);
+    }
+
+    // Get tasks associated with a specific project
+    public List<Task> getTasksByProjectId(Long projectId) {
+        return taskRepository.findByProjectId(projectId);
+    }
+}
