@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
 
     @Id
@@ -12,19 +12,16 @@ public class User {
     private Long id;
 
     private String username;
-
     private String password;
-
     private String email;
 
     @Enumerated(EnumType.STRING)
-    private String role;
+    private Role role;  // Cambiamos de String a Role
 
     @OneToMany(mappedBy = "user")
     private Set<Task> tasks;
 
     // Getters y Setters
-
     public Long getId() {
         return id;
     }
@@ -57,11 +54,11 @@ public class User {
         this.email = email;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

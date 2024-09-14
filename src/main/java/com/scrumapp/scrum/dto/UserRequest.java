@@ -1,10 +1,12 @@
 package com.scrumapp.scrum.dto;
 
+import com.scrumapp.scrum.models.Role;
+
 public class UserRequest {
     private String username;
     private String password;
     private String email;
-    private String role;
+    private Role role;  // Cambiamos de String a Role
 
     // Getters y Setters
     public String getUsername() {
@@ -31,11 +33,11 @@ public class UserRequest {
         this.email = email;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 }

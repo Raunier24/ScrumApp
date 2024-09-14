@@ -2,6 +2,7 @@ package com.scrumapp.scrum.services;
 
 import com.scrumapp.scrum.models.User;
 import com.scrumapp.scrum.dto.UserRequest;
+import com.scrumapp.scrum.models.Role;
 import com.scrumapp.scrum.repositories.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,7 +16,6 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    // Inyección de dependencias manual
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -35,7 +35,7 @@ public class UserService {
         user.setUsername(userRequest.getUsername());
         user.setEmail(userRequest.getEmail());
         user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-        user.setRole(userRequest.getRole());
+        user.setRole(userRequest.getRole());  // Asignamos el Role como enum
         return userRepository.save(user);
     }
 
@@ -44,7 +44,7 @@ public class UserService {
         if (user != null) {
             user.setUsername(userRequest.getUsername());
             user.setEmail(userRequest.getEmail());
-            user.setRole(userRequest.getRole());
+            user.setRole(userRequest.getRole());  // Asignamos el Role como enum
             userRepository.save(user);
         }
         return ResponseEntity.ok(user);
