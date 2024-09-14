@@ -1,39 +1,46 @@
 package com.scrumapp.scrum.controller;
 
 import com.scrumapp.scrum.dto.UserRequest;
+import com.scrumapp.scrum.models.User;
+import com.scrumapp.scrum.services.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
 
+    private final UserService userService;
+
+    // Inyección de dependencias manual, sin @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
     @GetMapping
-    public String getAllUsers() {
-        // Lógica para obtener todos los usuarios
-        return "List of users";
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
-    public String getUserById(@PathVariable Long id) {
-        // Lógica para obtener un usuario por su ID
-        return "User details";
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
     }
 
     @PostMapping
-    public String createUser(@RequestBody UserRequest userRequest) {
-        // Lógica para crear un nuevo usuario
-        return "User created";
+    public User createUser(@RequestBody UserRequest userRequest) {
+        return userService.createUser(userRequest);
     }
 
     @PutMapping("/{id}")
-    public String updateUser(@PathVariable Long id, @RequestBody UserRequest userRequest) {
-        // Lógica para actualizar un usuario
-        return "User updated";
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserRequest userRequest) {
+        return userService.updateUser(id, userRequest);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable Long id) {
-        // Lógica para eliminar un usuario
-        return "User deleted";
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        return userService.deleteUser(id);
     }
 }
