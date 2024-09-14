@@ -1,4 +1,4 @@
-package com.scrumapp.scrum.repository;
+package com.scrumapp.scrum.repositories;
 
 
 import com.scrumapp.scrum.models.User;
