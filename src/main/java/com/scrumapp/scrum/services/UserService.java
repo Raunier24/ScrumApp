@@ -1,7 +1,7 @@
 package com.scrumapp.scrum.services;
 
 import com.scrumapp.scrum.models.User;
-import com.scrumapp.scrum.repository.UserRepository;
+import com.scrumapp.scrum.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
