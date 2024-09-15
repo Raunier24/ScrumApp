@@ -4,21 +4,27 @@ import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
-//@Table(name = "user")
+@Table(name = "users") // Especificamos el nombre de la tabla
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true) // Definimos el campo como obligatorio y único
     private String username;
+
+    @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Enumerated(EnumType.STRING)
-    private Role role;  // Cambiamos de String a Role
+    @Column(nullable = false)
+    private Role role;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY) // Relación con Task
     private Set<Task> tasks;
 
     // Getters y Setters

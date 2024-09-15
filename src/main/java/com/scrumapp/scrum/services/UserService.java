@@ -1,57 +1,46 @@
 package com.scrumapp.scrum.services;
 
 import com.scrumapp.scrum.models.User;
-import com.scrumapp.scrum.dto.UserRequest;
-import com.scrumapp.scrum.models.Role;
-import com.scrumapp.scrum.repositories.UserRepository;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.scrumapp.scrum.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+    @Autowired
+    private UserRepository userRepository;
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public ResponseEntity<User> getUserById(Long id) {
-        User user = userRepository.findById(id).orElse(null);
-        return ResponseEntity.ok(user);
+    public Optional<User> getUserById(Long id) {
+        return userRepository.findById(id);
     }
 
-    public User createUser(UserRequest userRequest) {
-        User user = new User();
-        user.setUsername(userRequest.getUsername());
-        user.setEmail(userRequest.getEmail());
-        user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-        user.setRole(userRequest.getRole());  // Asignamos el Role como enum
+    public User createUser(User user) {
         return userRepository.save(user);
     }
 
-    public ResponseEntity<User> updateUser(Long id, UserRequest userRequest) {
-        User user = userRepository.findById(id).orElse(null);
-        if (user != null) {
-            user.setUsername(userRequest.getUsername());
-            user.setEmail(userRequest.getEmail());
-            user.setRole(userRequest.getRole());  // Asignamos el Role como enum
-            userRepository.save(user);
+    public User updateUser(Long id, User userDetails) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setUsername(userDetails.getUsername());
+            user.setPassword(userDetails.getPassword());
+            user.setEmail(userDetails.getEmail());
+            user.setRole(userDetails.getRole());
+            return userRepository.save(user);
+        } else {
+            return null;
         }
-        return ResponseEntity.ok(user);
     }
 
-    public ResponseEntity<Void> deleteUser(Long id) {
+    public void deleteUser(Long id) {
         userRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
     }
 }
