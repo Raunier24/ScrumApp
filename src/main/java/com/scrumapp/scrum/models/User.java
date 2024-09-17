@@ -1,10 +1,7 @@
 package com.scrumapp.scrum.models;
 
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import javax.management.relation.Role;
 import java.util.List;
 import java.util.Set;
 
@@ -22,8 +19,6 @@ public class User {
 
     private String email;
 
-//    @Enumerated(EnumType.STRING)
-//    private Role role;
 
     // Relación One-to-Many con Task
     @OneToMany(mappedBy = "user")
