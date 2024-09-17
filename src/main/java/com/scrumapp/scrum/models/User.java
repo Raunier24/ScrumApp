@@ -4,33 +4,33 @@ import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
-//@Table(name = "users") // Especificamos el nombre de la tabla
+//@Table(name = "user")
 public class User {
 
     @Id
+    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idUser;
 
-    @Column(nullable = false, unique = true) // Definimos el campo como obligatorio y único
     private String username;
-
-    @Column(nullable = false)
     private String password;
-
-    @Column(nullable = false, unique = true)
     private String email;
 
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY) // Relación con Task
+    @OneToMany(mappedBy = "user")
     private Set<Task> tasks;
 
+    // Relación Many-to-Many con Project
+    @ManyToMany(mappedBy = "users")
+    @JsonBackReference // Lado inverso de la relación
+    private List<Project> projectList;
+
     // Getters y Setters
-    public Long getId() {
-        return id;
+    public Long getIdUser() {
+        return idUser;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
     }
 
     public String getUsername() {
@@ -57,6 +57,13 @@ public class User {
         this.email = email;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     public Set<Task> getTasks() {
         return tasks;
@@ -64,5 +71,13 @@ public class User {
 
     public void setTasks(Set<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public List<Project> getProjectList() {
+        return projectList;
+    }
+
+    public void setProjectList(List<Project> projectList) {
+        this.projectList = projectList;
     }
 }
