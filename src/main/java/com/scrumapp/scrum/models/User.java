@@ -1,6 +1,9 @@
 package com.scrumapp.scrum.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -57,14 +60,6 @@ public class User {
         this.email = email;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
     public Set<Task> getTasks() {
         return tasks;
     }
@@ -73,11 +68,11 @@ public class User {
         this.tasks = tasks;
     }
 
-    public List<Project> getProjectList() {
+    public java.util.List<Project> getProjectList() {
         return projectList;
     }
 
-    public void setProjectList(List<Project> projectList) {
+    public void setProjectList(java.util.List<Project> projectList) {
         this.projectList = projectList;
     }
 }
