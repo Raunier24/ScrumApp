@@ -1,7 +1,7 @@
 package com.scrumapp.scrum.services;
 
 import com.scrumapp.scrum.models.User;
-import com.scrumapp.scrum.repositories.UserRepository;
+import com.scrumapp.scrum.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.Optional;
 public class UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private IUserRepository userRepository;
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -33,7 +33,6 @@ public class UserService {
             user.setUsername(userDetails.getUsername());
             user.setPassword(userDetails.getPassword());
             user.setEmail(userDetails.getEmail());
-            user.setRole(userDetails.getRole());
             return userRepository.save(user);
         } else {
             return null;

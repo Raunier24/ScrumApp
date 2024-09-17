@@ -1,4 +1,4 @@
-package com.scrumapp.scrum.controller;
+package com.scrumapp.scrum.controllers;
 
 import com.scrumapp.scrum.models.User;
 import com.scrumapp.scrum.services.UserService;
