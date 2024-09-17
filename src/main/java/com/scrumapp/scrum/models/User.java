@@ -20,9 +20,6 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Role role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY) // Relación con Task
     private Set<Task> tasks;
@@ -60,13 +57,6 @@ public class User {
         this.email = email;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
 
     public Set<Task> getTasks() {
         return tasks;
