@@ -1,7 +1,9 @@
 package com.scrumapp.scrum.models;
-package com.example.scrumapp.models;
 
-import javax.persistence.*;
+
+import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+
 import java.util.HashSet;
 import java.util.Set;
 
