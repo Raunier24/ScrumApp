@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "users") // Especificamos el nombre de la tabla
+//@Table(name = "users") // Especificamos el nombre de la tabla
 public class User {
 
     @Id
