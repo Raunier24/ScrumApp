@@ -1,36 +1,46 @@
 package com.scrumapp.scrum.models;
 
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import javax.management.relation.Role;
+import java.util.List;
 import java.util.Set;
 
 @Entity
-//@Table(name = "users") // Especificamos el nombre de la tabla
+//@Table(name = "user")
 public class User {
 
     @Id
+    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idUser;
 
     @Column(nullable = false, unique = true) // Definimos el campo como obligatorio y único
     private String username;
-
-    @Column(nullable = false)
     private String password;
-
-    @Column(nullable = false, unique = true)
     private String email;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;  // Cambiamos de String a Role
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY) // Relación con Task
+    // Relación One-to-Many con Task
+    @OneToMany(mappedBy = "user")
     private Set<Task> tasks;
 
+    // Relación Many-to-Many con Project
+    @ManyToMany(mappedBy = "users")
+    @JsonBackReference // Lado inverso de la relación
+    private List<Project> projectList;
+
     // Getters y Setters
-    public Long getId() {
-        return id;
+    public Long getIdUser() {
+        return idUser;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
     }
 
     public String getUsername() {
@@ -64,5 +74,13 @@ public class User {
 
     public void setTasks(Set<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public List<Project> getProjectList() {
+        return projectList;
+    }
+
+    public void setProjectList(List<Project> projectList) {
+        this.projectList = projectList;
     }
 }
