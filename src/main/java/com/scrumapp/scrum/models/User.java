@@ -2,18 +2,14 @@ package com.scrumapp.scrum.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-
-import java.util.List;
 import java.util.Set;
 
 @Entity
-//@Table(name = "user")
 public class User {
 
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idUser;
+    private Long id;
 
     private String username;
     private String password;
@@ -22,18 +18,25 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Task> tasks;
 
-    // Relación Many-to-Many con Project
     @ManyToMany(mappedBy = "users")
-    @JsonBackReference // Lado inverso de la relación
-    private List<Project> projectList;
+    @JsonBackReference
+    private Set<Project> projectList;
 
-    // Getters y Setters
-    public Long getIdUser() {
-        return idUser;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles;
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
     }
 
-    public void setIdUser(Long idUser) {
-        this.idUser = idUser;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -68,11 +71,19 @@ public class User {
         this.tasks = tasks;
     }
 
-    public java.util.List<Project> getProjectList() {
+    public Set<Project> getProjectList() {
         return projectList;
     }
 
-    public void setProjectList(java.util.List<Project> projectList) {
+    public void setProjectList(Set<Project> projectList) {
         this.projectList = projectList;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

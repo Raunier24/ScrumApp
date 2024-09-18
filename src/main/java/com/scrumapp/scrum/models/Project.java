@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -14,8 +15,8 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    @Column(name = "id project")
-    private Long idProject;
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -32,15 +33,15 @@ public class Project {
     )
 
     @JsonManagedReference // Lado propietario de la relación
-    private List<User> users;
+    private Set<User> users;
 
     // Getters and Setters
     public Long getId() {
-        return idProject;
+        return id;
     }
 
     public void setId(Long id) {
-        this.idProject = id;
+        this.id = id;
     }
 
     public String getName() {
@@ -59,11 +60,11 @@ public class Project {
         this.description = description;
     }
 
-    public List<User> getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
     }
 }
