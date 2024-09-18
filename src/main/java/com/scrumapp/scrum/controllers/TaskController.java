@@ -2,6 +2,7 @@ package com.scrumapp.scrum.controllers;
 
 import com.scrumapp.scrum.models.Task;
 import com.scrumapp.scrum.services.TaskService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,13 +54,13 @@ public class TaskController {
 
 
     @DeleteMapping(path = "/task/{id}")
-    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
+    public ResponseEntity<String> deleteTask(@PathVariable Long id) {
         Optional<Task> task = taskService.getTaskById(id);
         if (task.isPresent()) {
             taskService.deleteTask(id);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok("Task deleted successfully.");
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Task not found.");
         }
     }
 
