@@ -30,12 +30,12 @@ public class Project {
 
     @ManyToMany
     @JoinTable(
-            name = "project_user", // Nombre de la tabla intermedia
-            joinColumns = @JoinColumn(name = "project_id"), // Columna de esta entidad
-            inverseJoinColumns = @JoinColumn(name = "user_id") // Columna de la otra entidad
+            name = "project_user",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
     )
 
-    @JsonManagedReference // Lado propietario de la relación
+    @JsonManagedReference
     private List<User> users;
 
     // Getters and Setters
@@ -70,11 +70,11 @@ public class Project {
     public void setUsers(List<User> users) {
         this.users = users;
     }
-    public LocalDate getStartDate() { // Agregado el getter para startDate
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) { // Agregado el setter para startDate
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 }
