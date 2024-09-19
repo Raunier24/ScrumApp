@@ -20,16 +20,16 @@ public class User {
     private String email;
 
 
-    // Relación One-to-Many con Task
+
     @OneToMany(mappedBy = "user")
     private Set<Task> tasks;
 
-    // Relación Many-to-Many con Project
+
     @ManyToMany(mappedBy = "users")
-    @JsonBackReference // Lado inverso de la relación
+    @JsonBackReference
     private List<Project> projectList;
 
-    // Getters y Setters
+
     public Long getIdUser() {
         return idUser;
     }
