@@ -1,7 +1,7 @@
 package com.scrumapp.scrum.models;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -27,7 +27,7 @@ public class Project {
     @Column(name = "start_date")
     private LocalDate startDate;
 
-    // Relación Many-to-Many con User
+
     @ManyToMany
     @JoinTable(
             name = "project_user", // Nombre de la tabla intermedia
