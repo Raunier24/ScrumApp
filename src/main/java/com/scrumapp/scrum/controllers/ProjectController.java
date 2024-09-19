@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/projects")
+@RequestMapping("/api/v1")
 public class ProjectController {
 
     private final ProjectService projectService;
@@ -19,26 +19,26 @@ public class ProjectController {
     }
 
 
-    @GetMapping
+    @GetMapping(path = "/project")
     public List<Project> getAllProjects() {
         return projectService.getAllProjects();
     }
 
 
-    @GetMapping("/{id}")
+    @GetMapping(path = "/project/{id}")
     public ResponseEntity<Project> getProjectById(@PathVariable Long id) {
         Optional<Project> project = projectService.getProjectById(id);
         return project.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 
-    @PostMapping
+    @PostMapping(path = "/project")
     public Project createProject(@RequestBody Project project) {
         return projectService.createProject(project);
     }
 
 
-    @PutMapping("/{id}")
+    @PutMapping(path = "/project/{id}")
     public ResponseEntity<Project> updateProject(@PathVariable Long id, @RequestBody Project projectDetails) {
         try {
             Project updatedProject = projectService.updateProject(id, projectDetails);
@@ -49,7 +49,7 @@ public class ProjectController {
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(path = "/project/{id}")
     public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
         try {
             projectService.deleteProject(id);

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/v1")
 public class UserController {
 
     private final UserService userService;
@@ -20,26 +20,26 @@ public class UserController {
     }
 
 
-    @GetMapping
+    @GetMapping(path = "/user")
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
 
 
-    @GetMapping("/{id}")
+    @GetMapping(path = "/user/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         Optional<User> user = userService.getUserById(id);
         return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 
-    @PostMapping
+    @PostMapping(path = "/user")
     public User createUser(@RequestBody User user) {
         return userService.saveUser(user);
     }
 
 
-    @PutMapping("/{id}")
+    @PutMapping(path = "/user/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
         try {
             return ResponseEntity.ok(userService.updateUser(id, user));

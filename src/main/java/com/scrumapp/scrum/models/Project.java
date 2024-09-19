@@ -35,7 +35,7 @@ public class Project {
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
 
-    @JsonManagedReference
+    //@JsonManagedReference
     private List<User> users;
 
     // Getters and Setters
