@@ -19,26 +19,26 @@ public class ProjectController {
     }
 
 
-    @GetMapping(path = "/project")
+    @GetMapping(path = "/getProject")
     public List<Project> getAllProjects() {
         return projectService.getAllProjects();
     }
 
 
-    @GetMapping(path = "/project/{id}")
+    @GetMapping(path = "/idProject/{id}")
     public ResponseEntity<Project> getProjectById(@PathVariable Long id) {
         Optional<Project> project = projectService.getProjectById(id);
         return project.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 
-    @PostMapping(path = "/project")
+    @PostMapping(path = "/createProject")
     public Project createProject(@RequestBody Project project) {
         return projectService.createProject(project);
     }
 
 
-    @PutMapping(path = "/project/{id}")
+    @PutMapping(path = "/projectUpdate/{id}")
     public ResponseEntity<Project> updateProject(@PathVariable Long id, @RequestBody Project projectDetails) {
         try {
             Project updatedProject = projectService.updateProject(id, projectDetails);
@@ -49,7 +49,7 @@ public class ProjectController {
     }
 
 
-    @DeleteMapping(path = "/project/{id}")
+    @DeleteMapping(path = "/deleteProject/{id}")
     public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
         try {
             projectService.deleteProject(id);

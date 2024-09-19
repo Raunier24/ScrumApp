@@ -9,5 +9,5 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/db_scrumapp
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_PASSWORD:
       SPRING_JPA_HIBERNATE_DDL_AUTO: update

@@ -20,27 +20,27 @@ public class TaskController {
     }
 
 
-    @GetMapping(path = "/task")
+    @GetMapping(path = "/getTask")
     public List<Task> getAllTasks() {
         return taskService.getAllTasks();
     }
 
 
-    @GetMapping (path = "/task/{id}")
+    @GetMapping (path = "/idTask/{id}")
     public ResponseEntity<Task> getTaskById(@PathVariable Long id) {
         Optional<Task> task = taskService.getTaskById(id);
         return task.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 
-    @PostMapping(path = "/task")
+    @PostMapping(path = "/createTask")
     public ResponseEntity<Task> createTask(@RequestBody Task task) {
         Task createdTask = taskService.saveTask(task);
         return ResponseEntity.ok(createdTask);
     }
 
 
-    @PutMapping(path = "/task/{id}")
+    @PutMapping(path = "/updateTask/{id}")
     public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task updatedTask) {
         Optional<Task> existingTask = taskService.getTaskById(id);
         if (existingTask.isPresent()) {
@@ -53,7 +53,7 @@ public class TaskController {
     }
 
 
-    @DeleteMapping(path = "/task/{id}")
+    @DeleteMapping(path = "/deleteTask/{id}")
     public ResponseEntity<String> deleteTask(@PathVariable Long id) {
         Optional<Task> task = taskService.getTaskById(id);
         if (task.isPresent()) {
@@ -65,13 +65,13 @@ public class TaskController {
     }
 
     // Get tasks assigned to a specific user
-    @GetMapping("/user/{userId}")
+    @GetMapping("/getUser/{userId}")
     public List<Task> getTasksByUserId(@PathVariable Long userId) {
         return taskService.getTasksByUserId(userId);
     }
 
     // Get tasks associated with a specific project
-    @GetMapping("/project/{projectId}")
+    @GetMapping("/userProject/{projectId}")
     public List<Task> getTasksByProjectId(@PathVariable Long projectId) {
         return taskService.getTasksByProjectId(projectId);
     }
