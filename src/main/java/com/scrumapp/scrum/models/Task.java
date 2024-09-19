@@ -2,18 +2,25 @@ package com.scrumapp.scrum.models;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 
 @Entity
 public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_task")
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "description")
     private String description;
 
+    @Column(name = "start_date_task")
+    private LocalDate startDate;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -23,7 +30,7 @@ public class Task {
     @JoinColumn(name = "project_id")
     private Project project;
 
-    // Getters y setters
+
 
     public Long getId() {
         return id;
@@ -47,6 +54,14 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
     public User getUser() {

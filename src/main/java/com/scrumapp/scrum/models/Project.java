@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -14,7 +15,7 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    @Column(name = "id project")
+    @Column(name = "id_project")
     private Long idProject;
 
     @Column(name = "name")
@@ -22,6 +23,9 @@ public class Project {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "start_date")
+    private LocalDate startDate;
 
     // Relación Many-to-Many con User
     @ManyToMany
@@ -35,12 +39,12 @@ public class Project {
     private List<User> users;
 
     // Getters and Setters
-    public Long getId() {
+    public Long getIdProject() {
         return idProject;
     }
 
-    public void setId(Long id) {
-        this.idProject = id;
+    public void setIdProject(Long idProject) {
+        this.idProject = idProject;
     }
 
     public String getName() {
@@ -65,5 +69,12 @@ public class Project {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+    public LocalDate getStartDate() { // Agregado el getter para startDate
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) { // Agregado el setter para startDate
+        this.startDate = startDate;
     }
 }

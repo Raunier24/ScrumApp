@@ -9,9 +9,9 @@ import java.util.List;
 
 @Repository
 public interface ITaskRepository extends JpaRepository<Task, Long> {
-    // Cambia 'userId' por 'user.idUser'
+
     List<Task> findByUserIdUser(Long userId);
 
-    // Cambia 'projectId' por 'project.id'
-    List<Task> findByProjectId(Long projectId);
+
+    List<Task> findByProjectIdProject(Long projectId);
 }
